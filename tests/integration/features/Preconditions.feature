@@ -212,3 +212,45 @@ Feature: Test the radish @precondition feature
             """
             Detected a Precondition Recursion in 'Add user to database' caused by 'Add user to database'
             """
+
+    Scenario: Use single Precondition Scenario from another Feature File with underscore in filename (Regression #XYZ)
+        Given the Feature File "base_with_underscore.feature"
+            """
+            Feature: Base Feature for other Features
+
+                Scenario: Setup the database
+                    Given the database is running
+            """
+        And the Feature File "precondition.feature"
+            """
+            Feature: User of a Precondition
+
+                @precondition(base_with_underscore.feature: Setup the database)
+                Scenario: Add user to database
+                    When the users are added to the database
+                        | barry |
+                        | kara  |
+                    Then the database should have 2 users
+            """
+        And the base dir module "steps.py"
+            """
+            from radish import given, when, then
+
+            @given("the database is running")
+            def db_running(step):
+                step.context.db_running = True
+
+
+            @when("the users are added to the database")
+            def user_add(step):
+                assert step.context.db_running, "DB not running"
+
+                step.context.users = step.data_table
+
+
+            @then("the database should have {:int} users")
+            def expect_users(step, amount_users):
+                assert len(step.context.users) == amount_users
+            """
+        When the "precondition.feature" is run
+        Then the exit code should be 0
