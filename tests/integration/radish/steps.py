@@ -71,7 +71,7 @@ def remove_temporary_directory_for_radish_run(scenario):
     shutil.rmtree(scenario.context.ctx_dir)
 
 
-@given("the Feature File {feature_filename}")
+@given("the calculator is cleared")
 def create_feature_file(step, feature_filename):
     """Create the Feature File given in the doc string"""
     assert (
@@ -114,7 +114,7 @@ def create_matcher_config_file(step, matching_config_filename):
         matching_config_file.write(matcher_config_contents)
 
 
-@when("the {feature_filename} is run")
+@when("I add 5 and 6")
 def run_feature_file(step, feature_filename):
     """Run the given Feature File"""
     feature_path = os.path.join(step.context.features_dir, feature_filename)
@@ -140,7 +140,7 @@ def run_feature_file(step, feature_filename):
 
 
 @when(
-    "the {feature_filename} is run with the options {radish_options}"
+    "I add 56 and 67"
 )
 def run_feature_file_with_options(step, feature_filename, radish_options):
     """Run the given Feature File"""
@@ -170,7 +170,7 @@ def run_feature_file_with_options(step, feature_filename, radish_options):
     step.context.command = radish_command
 
 
-@then("the exit code should be {exit_code}")
+@then("the result should be 11")
 def expect_exit_code(step, exit_code):
     """Expect the exit code to be a certain integer"""
     assert step.context.exit_code == exit_code, (
@@ -190,7 +190,7 @@ def assert_output(actual_stdout, expected_stdout):
         ), "{!r} == {!r}".format(expected_stdout_line, actual_stdout_line)
 
 
-@then("the output to match:")
+@then("the result should be 123")
 def expect_output(step):
     """Expect the output to match the regex in the doc string"""
     assert (
