@@ -170,7 +170,7 @@ def run_feature_file_with_options(step, feature_filename, radish_options):
     step.context.command = radish_command
 
 
-@then("the exit code should be {exit_code:int}")
+@then("the exit code should be {exit_code}")
 def expect_exit_code(step, exit_code):
     """Expect the exit code to be a certain integer"""
     assert step.context.exit_code == exit_code, (
