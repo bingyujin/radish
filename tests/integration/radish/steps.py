@@ -71,7 +71,7 @@ def remove_temporary_directory_for_radish_run(scenario):
     shutil.rmtree(scenario.context.ctx_dir)
 
 
-@given("the Feature File {feature_filename:QuotedString}")
+@given("the Feature File {feature_filename}")
 def create_feature_file(step, feature_filename):
     """Create the Feature File given in the doc string"""
     assert (
@@ -85,7 +85,7 @@ def create_feature_file(step, feature_filename):
         feature_file.write(feature_contents)
 
 
-@given("the base dir module {module_filename:QuotedString}")
+@given("the base dir module {module_filename}")
 def create_base_dir_module(step, module_filename):
     """Create the base dir module given in the doc string"""
     assert (
@@ -98,7 +98,7 @@ def create_base_dir_module(step, module_filename):
         module_file.write(module_contents)
 
 
-@given("the Matcher Config File {matching_config_filename:QuotedString}")
+@given("the Matcher Config File {matching_config_filename}")
 def create_matcher_config_file(step, matching_config_filename):
     """Create the Matcher Config File given in the doc string"""
     assert (
@@ -114,7 +114,7 @@ def create_matcher_config_file(step, matching_config_filename):
         matching_config_file.write(matcher_config_contents)
 
 
-@when("the {feature_filename:QuotedString} is run")
+@when("the {feature_filename} is run")
 def run_feature_file(step, feature_filename):
     """Run the given Feature File"""
     feature_path = os.path.join(step.context.features_dir, feature_filename)
@@ -140,7 +140,7 @@ def run_feature_file(step, feature_filename):
 
 
 @when(
-    "the {feature_filename:QuotedString} is run with the options {radish_options:QuotedString}"
+    "the {feature_filename} is run with the options {radish_options}"
 )
 def run_feature_file_with_options(step, feature_filename, radish_options):
     """Run the given Feature File"""
@@ -250,7 +250,7 @@ def expect_fail(step):
     )
 
 
-@then("the XML file {xmlfile:word} validates against {xsdfile:word}")
+@then("the XML file {xmlfile} validates against {xsdfile}")
 def expect_xml_validates(step, xmlfile, xsdfile):
     """Expect that the given XML file validates against the given XSD file"""
     xmlfile_path = os.path.join(step.context.ctx_dir, xmlfile)
@@ -264,8 +264,8 @@ def expect_xml_validates(step, xmlfile, xsdfile):
 
 
 @then(
-    "the XML file {xmlfile:word} has the value "
-    "{expected_value:QuotedString} at {xpath:QuotedString}"
+    "the XML file {xmlfile} has the value "
+    "{expected_value} at {xpath}"
 )
 def expect_value_at_xpath(step, xmlfile, expected_value, xpath):
     """Expect the given value at the given xpath in the given xml file"""
@@ -289,7 +289,7 @@ def expect_value_at_xpath(step, xmlfile, expected_value, xpath):
     )
 
 
-@then("the XML file {xmlfile:word} has the content:")
+@then("the XML file {xmlfile} has the content:")
 def expect_xml_content(step, xmlfile):
     """Expect the XML file content to match the given Doc String"""
     assert (
@@ -304,15 +304,15 @@ def expect_xml_content(step, xmlfile):
     assert_output(actual_content, step.doc_string.replace("\r", ""))
 
 
-@when("the {matching_config_filename:QuotedString} is tested")
+@when("the {matching_config_filename} is tested")
 def run_matching_config(step, matching_config_filename):
     """Run the given Feature File"""
     run_matching_config_with_options(step, matching_config_filename, "")
 
 
 @when(
-    "the {matching_config_filename:QuotedString} "
-    "is tested with the options {radish_options:QuotedString}"
+    "the {matching_config_filename} "
+    "is tested with the options {radish_options}"
 )
 def run_matching_config_with_options(step, matching_config_filename, radish_options):
     """Run the given Feature File"""
@@ -339,7 +339,7 @@ def run_matching_config_with_options(step, matching_config_filename, radish_opti
     step.context.command = radish_command
 
 
-@when("the {feature_filename:QuotedString} is parsed")
+@when("the {feature_filename} is parsed")
 def run_parser(step, feature_filename):
     """Run the given Feature File"""
     feature_path = os.path.join(step.context.features_dir, feature_filename)
