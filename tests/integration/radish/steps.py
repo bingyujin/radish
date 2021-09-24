@@ -202,7 +202,7 @@ def expect_output(step):
     assert_output(actual_stdout, step.doc_string.replace("\r", ""))
 
 
-@then("the run should fail with a {exc_type_name:word}")
+@then("the run should fail with a {exc_type_name}")
 def expect_fail_with_exc(step, exc_type_name):
     """Expect the run failed with an exception of the given type and message from doc string"""
     assert step.context.exit_code != 0, +"stdout from radish run: '{}':\n".format(
